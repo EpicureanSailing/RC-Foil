@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  	
+	
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "apt-get update && apt-get install -y cmake gdb git wget libncurses5-dev flex bison libssl-dev libelf-dev autoconf bc build-essential libtool libglib2.0-dev vim python3-pip python3-venv unzip && apt-get install -y gcc g++ gperf bison flex texinfo help2man make libncurses5-dev python3-dev autoconf automake libtool libtool-bin gawk wget bzip2 xz-utils unzip patch rsync meson ninja-build && wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.bz2 && tar -xjf crosstool-ng-1.26.0.tar.bz2 && cd crosstool-ng-1.26.0 && ./configure --prefix=/crosstool-ng-1.26.0/out && make && make install && PATH=$PATH:/crosstool-ng-1.26.0/out/bin && mkdir toolchain-dir && cd toolchain-dir && cp <path-to-config-file> .config && ct-ng build",
+
+
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "root"
+	"customizations": {
+		// wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-VERSION.tar.bz2
+		FROM gcc:4.9
+		COPY . /usr/src/myapp
+		WORKDIR /usr/src/myapp
+		RUN gcc -o myapp main.c
+C		CMD ["./myapp"]
+		"vscode": {
+			"extensions": [
+				"streetsidesoftware.code-spell-checker",
+				"chiehyu.vscode-astyle",
+				"dan-c-underwood.arm",
+				"editorconfig.editorconfig",
+				"fredericbonnet.cmake-test-adapter",
+				"github.vscode-pull-request-github",
+				"marus25.cortex-debug",
+				"ms-azuretools.vscode-docker",
+				"ms-iot.vscode-ros",
+				"ms-python.python",
+				"ms-vscode.cmake-tools",
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
+				"redhat.vscode-yaml",
+				"streetsidesoftware.code-spell-checker",
+				"twxs.cmake",
+				"uavcan.dsdl",
+				"wholroyd.jinja",
+				"zixuanwang.linkerscript",
+				"ms-vscode.makefile-tools"]
+},
+  	"forwardPorts": [3000]
+}
